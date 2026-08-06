@@ -3,7 +3,7 @@ True or False answers, gives user feedback on whether they got the correct answe
 
 This program was made in order to display key Object Oriented Programming concepts, including:
 1. Object creation and modification
-2. Class creation and modifcation
+2. Class creation and modification
 3. Creating methods inside classes and using them inside the current class and with the use of objects.
 
 Feel free to use your own list of questions from the website: https://opentdb.com/
