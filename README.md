@@ -1,12 +1,14 @@
-This is a CLI program that acts as a quiz game for anyone wanting to make a quick quiz from a list of questions. This quiz displays the current question, accepts
-True or False answers, gives user feedback on whether they got the correct answer or not, and displays the user's current score. 
+# Quizler 🧠
+ 
+A True/False trivia quiz game built in Python, using live questions pulled from the [Open Trivia Database API](https://opentdb.com/). The project is split into separate modules to keep the UI, quiz logic, and data-fetching responsibilities cleanly separated.
+ 
+## Features
+ 
+- **Tkinter-based GUI** with a scoreboard, question canvas, and True/False buttons
+- **Live question fetching** from a public trivia API — no hardcoded question sets
+- **Object-oriented quiz logic** that tracks score, question progress, and answer checking
+- **Reset functionality** to restart the quiz from question one
 
-This program was made in order to display key Object Oriented Programming concepts, including:
-1. Object creation and modification
-2. Class creation and modification
-3. Creating methods inside classes and using them inside the current class and with the use of objects.
 
-Feel free to use your own list of questions from the website: https://opentdb.com/
-
-This website gives a list of questions in json format; you may choose any amount or genre of questions. 
-Currently, the code only works with True or False questions. 
+Currently, the code only works with True or False questions. To run this quiz, just download all .py files and place them inside your IDE of choice. 
+All files must be downloaded for the quiz to work.
