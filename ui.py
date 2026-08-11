@@ -1,0 +1,97 @@
+import tkinter as tk
+from tkinter import messagebox
+from quiz_brain import QuizBrain
+
+THEME_COLOR = "#375362"
+
+class QuizUI:
+    def __init__(self, quiz_brain: QuizBrain):
+        self.quiz = quiz_brain
+
+        #Window for UI
+        self.window = tk.Tk()
+        self.window.title("Quizler")
+        self.window.config(bg=THEME_COLOR, padx=20, pady=20)
+
+        #Score label
+        self.score_label = tk.Label(text = f"Score: {self.quiz.score}/{len(self.quiz.q_list)}",
+                                    font=("Arial", 12), fg="white", bg=THEME_COLOR)
+        self.score_label.grid(row=0, column=1)
+
+        #Canvas in the middle of the screen with text showing the text of question
+        self.canvas = tk.Canvas(self.window, bg="white", width = 300, height = 250,highlightthickness=0)
+        self.question_text = self.canvas.create_text(150, 125, text = "", font=("Arial", 12, "italic"), width = 280, fill=THEME_COLOR)
+        self.canvas.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
+
+        #PhotoImage for buttons
+        true_image = tk.PhotoImage(file="images/true.png")
+        false_image = tk.PhotoImage(file="images/false.png")
+
+        #Buttons at the bottom of the screen
+        self.true_button = tk.Button(image=true_image, highlightthickness=0,
+                                     highlightbackground=THEME_COLOR, bg=THEME_COLOR,command = self.true_pressed)
+        self.true_button.grid(row=2, column=0)
+
+        self.false_button = tk.Button(image=false_image, highlightthickness=0,
+                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.false_pressed)
+        self.false_button.grid(row=2, column=1)
+        self.reset_button = tk.Button(text = "Reset Quiz", highlightthickness=0,
+                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.ui_reset_quiz)
+        self.reset_button.grid(row=0, column=0)
+
+        self.show_next_question()
+
+        #Mainloop for window UI
+        self.window.mainloop()
+
+    def show_next_question(self):
+        """Displays the next question into the canvas as text."""
+        self.canvas.config(bg="white")
+        if self.quiz.still_has_questions():
+            self.score_label.config(text=f"Score: {self.quiz.score}/{len(self.quiz.q_list)}")
+            shown_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text = shown_text, fill=THEME_COLOR)
+        else:
+            self.true_button.config(state="disabled") #removes the button press from these buttons
+            self.false_button.config(state="disabled")
+            self.canvas.itemconfig(self.question_text, text="You've reached the end of this quiz.", fill=THEME_COLOR)
+            messagebox.showinfo(message = f"Your final score is: {self.quiz.score}/{len(self.quiz.q_list)}")
+
+    def screen_feedback(self,is_right):
+        """Depending on your answer, displays the appropriate feedback on the screen."""
+        if is_right:
+            self.canvas.config(bg="green")
+            self.canvas.itemconfig(self.question_text, text="Correct!", fill= "white")
+        else:
+            self.canvas.config(bg="red")
+            self.canvas.itemconfig(self.question_text, text="Incorrect!", fill= "white")
+        self.window.after(1000, self.show_next_question)
+
+    def true_pressed(self):
+        """Passes True as the answer in order to run the check answer function from quiz_brain."""
+        is_right = self.quiz.check_answer_and_score("True")
+        self.screen_feedback(is_right)
+
+    def false_pressed(self):
+        """Passes False as the answer in order to run the check answer function from quiz_brain."""
+        is_right = self.quiz.check_answer_and_score("False")
+        self.screen_feedback(is_right)
+
+    def ui_reset_quiz(self):
+        """Resets your score, and starts you at question 1 of the current quiz."""
+        self.quiz.reset_quiz()
+        self.true_button.config(state="normal")
+        self.false_button.config(state="normal")
+        self.show_next_question()
+
+
+
+
+
+
+
+
+
+
+
+
