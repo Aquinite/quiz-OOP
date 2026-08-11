@@ -5,7 +5,7 @@ A True/False trivia quiz game built in Python, using live questions pulled from 
 ## Features
  
 - **Tkinter-based GUI** with a scoreboard, question canvas, and True/False buttons
-- **Live question fetching** from a public trivia API — no hardcoded question sets
+- **Question fetching** from a public trivia API
 - **Object-oriented quiz logic** that tracks score, question progress, and answer checking
 - **Reset functionality** to restart the quiz from question one
 
