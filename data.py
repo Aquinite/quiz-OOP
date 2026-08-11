@@ -1,35 +1,14 @@
-question_data = [
-    {"type": "boolean",
-     "difficulty": "easy",
-     "category": "Science &amp; Nature",
-     "question": "The shape of the Earth is a perfect sphere.",
-     "correct_answer": "False",
-     "incorrect_answers": ["True"]},
-    {"type": "boolean", "difficulty": "easy", "category": "Science: Computers",
-     "question": "RAM stands for Random Access Memory.", "correct_answer": "True",
-     "incorrect_answers": ["False"]},
-    {"type": "boolean", "difficulty": "medium", "category": "Science: Mathematics",
-     "question": "Zero factorial is equal to zero. ", "correct_answer": "False",
-     "incorrect_answers": ["True"]},
-    {"type": "boolean", "difficulty": "hard", "category": "Entertainment: Japanese Anime &amp; Manga",
-     "question": "In the \"To Love-Ru\" series, Peke is considered a female robot.",
-     "correct_answer": "True",
-     "incorrect_answers": ["False"]},
-    {"type": "boolean", "difficulty": "medium", "category": "General Knowledge",
-     "question": "The term \"Spam\" came before the food product \"Spam\" ",
-     "correct_answer": "False", "incorrect_answers": ["True"]},
-    {"type": "boolean", "difficulty": "easy", "category": "Science: Computers",
-     "question": "The logo for Snapchat is a Bell.", "correct_answer": "False",
-     "incorrect_answers": ["True"]},
-    {"type": "boolean", "difficulty": "medium", "category": "Entertainment: Board Games",
-     "question": "Wooden molding scraps were used to make the original Monopoly houses and hotels.",
-     "correct_answer": "True", "incorrect_answers": ["False"]},
-    {"type": "boolean", "difficulty": "easy", "category": "Entertainment: Board Games",
-     "question": "Snakes and Ladders was originally created in India?", "correct_answer": "True",
-     "incorrect_answers": ["False"]},
-    {"type": "boolean", "difficulty": "easy", "category": "Animals",
-     "question": "Cats have whiskers under their legs.",
-     "correct_answer": "True", "incorrect_answers": ["False"]},
-    {"type": "boolean", "difficulty": "easy", "category": "Entertainment: Film",
-     "question": "In the original Star Wars trilogy, Alec Guinness provided the voice for Darth Vader.",
-     "correct_answer": "False", "incorrect_answers": ["True"]}]
+import requests
+
+
+AMOUNT_OF_QUESTIONS = 10
+TYPE_OF_QUESTIONS = "boolean"
+
+api_parameters = {"amount":AMOUNT_OF_QUESTIONS,
+                  "type": TYPE_OF_QUESTIONS}
+questions_from_api = requests.get(url = "https://opentdb.com/api.php",
+                                  params=api_parameters)
+questions_from_api.raise_for_status()
+
+pulled_questions = questions_from_api.json()
+question_data = pulled_questions.get("results")
