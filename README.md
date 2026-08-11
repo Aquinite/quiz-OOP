@@ -10,5 +10,5 @@ A True/False trivia quiz game built in Python, using live questions pulled from 
 - **Reset functionality** to restart the quiz from question one
 
 
-Currently, the code only works with True or False questions. To run this quiz, just download all .py files and place them inside your IDE of choice. 
+Currently, the code only works with True or False questions. To run this quiz, just download all files and place them inside your IDE of choice. Make sure that the images folder and the py files are in the same relative space for the code to work.
 All files must be downloaded for the quiz to work.
