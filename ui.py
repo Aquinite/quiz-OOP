@@ -16,12 +16,12 @@ class QuizUI:
         #Score label
         self.score_label = tk.Label(text = f"Score: {self.quiz.score}/{len(self.quiz.q_list)}",
                                     font=("Arial", 12), fg="white", bg=THEME_COLOR)
-        self.score_label.grid(row=0, column=1)
+        self.score_label.grid(row=0, column=2)
 
         #Canvas in the middle of the screen with text showing the text of question
-        self.canvas = tk.Canvas(self.window, bg="white", width = 300, height = 250,highlightthickness=0)
-        self.question_text = self.canvas.create_text(150, 125, text = "", font=("Arial", 12, "italic"), width = 280, fill=THEME_COLOR)
-        self.canvas.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
+        self.canvas = tk.Canvas(self.window, bg="white", width = 500, height = 350,highlightthickness=0)
+        self.question_text = self.canvas.create_text(250, 175, text = "", font=("Arial", 20, "italic"), width = 480, fill=THEME_COLOR)
+        self.canvas.grid(row=1, column=0, columnspan=3, padx=20, pady=20)
 
         #PhotoImage for buttons
         true_image = tk.PhotoImage(file="images/true.png")
@@ -29,15 +29,20 @@ class QuizUI:
 
         #Buttons at the bottom of the screen
         self.true_button = tk.Button(image=true_image, highlightthickness=0,
-                                     highlightbackground=THEME_COLOR, bg=THEME_COLOR,command = self.true_pressed)
+                                     highlightbackground=THEME_COLOR, bg=THEME_COLOR,command = self.true_pressed,activebackground="black")
         self.true_button.grid(row=2, column=0)
 
         self.false_button = tk.Button(image=false_image, highlightthickness=0,
-                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.false_pressed)
-        self.false_button.grid(row=2, column=1)
-        self.reset_button = tk.Button(text = "Reset Quiz", highlightthickness=0,
-                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.ui_reset_quiz)
-        self.reset_button.grid(row=0, column=0)
+                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.false_pressed,activebackground="black")
+        self.false_button.grid(row=2, column=2)
+        
+        self.restart_button = tk.Button(text = "Restart Quiz", highlightthickness=0,
+                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command = self.ui_reset_quiz,activebackground="black")
+        self.restart_button.grid(row=0, column=0)
+
+        self.new_quiz_button = tk.Button(text="Start New Quiz", highlightthickness=0,
+                                      highlightbackground=THEME_COLOR, bg=THEME_COLOR, command=self.start_new_quiz, activebackground="black")
+        self.new_quiz_button.grid(row=0, column=1)
 
         self.show_next_question()
 
@@ -77,12 +82,26 @@ class QuizUI:
         is_right = self.quiz.check_answer_and_score("False")
         self.screen_feedback(is_right)
 
-    def ui_reset_quiz(self):
+    def ui_restart_quiz(self):
         """Resets your score, and starts you at question 1 of the current quiz."""
-        self.quiz.reset_quiz()
-        self.true_button.config(state="normal")
-        self.false_button.config(state="normal")
-        self.show_next_question()
+        user_response = messagebox.askokcancel(title="Restart Quiz",
+                                               message="This will restart the current quiz. Do you wish to continue?")
+        if user_response:
+            self.quiz.restart_quiz()
+            self.true_button.config(state="normal")
+            self.false_button.config(state="normal")
+            self.show_next_question()
+
+    def start_new_quiz(self):
+        """Pulls a new set of 10 questions from the quiz API for you to play through."""
+        user_response = messagebox.askokcancel(title="Start New Quiz",
+                               message="This will start a new quiz with a new set of questions. Do you wish to continue?")
+        if user_response:
+            self.quiz.new_quiz()
+            self.quiz.restart_quiz()
+            self.true_button.config(state="normal")
+            self.false_button.config(state="normal")
+            self.show_next_question()
 
 
 
