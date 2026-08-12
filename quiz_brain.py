@@ -1,4 +1,5 @@
 import html
+import data
 
 
 class QuizBrain:
@@ -35,9 +36,13 @@ class QuizBrain:
         else:
             return True
 
-    def reset_quiz(self):
+    def restart_quiz(self):
         """Resets your score and allows the UI to display the first question again."""
         self.score = 0
         self.question_number = 0
         self.current_question = None
+
+    def new_quiz(self):
+        self.q_list = data.new_q_bank()
+        self.restart_quiz()
 
