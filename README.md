@@ -7,7 +7,8 @@ A True/False trivia quiz game built in Python, using live questions pulled from 
 - **Tkinter-based GUI** with a scoreboard, question canvas, and True/False buttons
 - **Question fetching** from a public trivia API
 - **Object-oriented quiz logic** that tracks score, question progress, and answer checking
-- **Reset functionality** to restart the quiz from question one
+- **Restart functionality** to restart the quiz from question one
+- **Start new quiz functionality** to start a new set of quiz questions from scratch.
 
 
 Currently, the code only works with True or False questions. To run this quiz, just download all files and place them inside your IDE of choice. Make sure that the images folder and the py files are in the same directory for the code to work.
