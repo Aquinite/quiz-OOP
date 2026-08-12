@@ -59,6 +59,7 @@ class QuizUI:
         else:
             self.true_button.config(state="disabled") #removes the button press from these buttons
             self.false_button.config(state="disabled")
+            self.score_label.config(text=f"Score: {self.quiz.score}/{len(self.quiz.question_list)}")
             self.canvas.itemconfig(self.question_text, text="You've reached the end of this quiz.", fill=THEME_COLOR)
             messagebox.showinfo(message = f"Your final score is: {self.quiz.score}/{len(self.quiz.q_list)}")
 
